@@ -26,7 +26,7 @@ var server = http.createServer(app);
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port,"192.168.0.159", err => {
+server.listen(port,'0.0.0.0', err => {
   logger.info("PDFGenAPI [www]",`Starting Service! Listening on port ${port}. -> http://localhost:8080`)
 
   if(err){

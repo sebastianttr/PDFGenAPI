@@ -12,15 +12,20 @@ class PDFViewConverter{
 
         this.fsWriteStream = fs.createWriteStream(filePath);
 
-        this.fsWriteStream.on("finish",() => {
-            this.onDone();
+        this.dataBuffer = [];
+
+        this.ctx.on("end",() => {
+            this.onDone(this.ctx,this.dataBuffer);
         })
+
 
     }
 
     generateFromView(view){
 
         this.ctx.pipe(this.fsWriteStream)
+
+        this.ctx.on('data',this.dataBuffer.push.bind(this.dataBuffer));
 
         view.forEach((el) => {
             switch(el.type){
